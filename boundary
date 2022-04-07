@@ -1,0 +1,72 @@
+//my code gives segmentation fault errorr
+
+// { Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+vector<int>c;
+ vector<int>leaf(Node*root)
+ {
+     if(root->left==NULL && root->right==NULL)
+     {
+         c.push_back(root->data);
+         return c;
+     }
+     leaf(root->left);
+     leaf(root->right);
+     return c;
+ }
+ vector<int> left(Node* root)
+ {
+     while(root->left!=NULL)
+     {
+         if(root->left!=NULL)
+         {
+         c.push_back(root->data);
+         root=root->left;
+             
+         }
+     }
+ }
+  vector<int>right(Node* root)
+ {
+     while(root->right!=NULL)
+     {
+         if(root->right!=NULL)
+         {
+         c.push_back(root->data);
+         root=root->right;
+         }
+     }
+ }
+    vector <int> boundary(Node *root)
+    {
+        left(root);
+        leaf(root);
+        right(root->right);
+        return c;//Your code here
+    }
+};
+
+// { Driver Code Starts.
+
+/* Driver program to test size function*/
+
+int main() {
+    int t;
+    string tc;
+    getline(cin, tc);
+    t=stoi(tc);
+    while(t--)
+    {
+        string s ,ch;
+        getline(cin, s);
+        Node* root = buildTree(s);
+        Solution ob;
+        vector <int> res = ob.boundary(root);
+        for (int i : res) cout << i << " ";
+        cout << endl;
+    }
+    return 0;
+}  // } Driver Code Ends
